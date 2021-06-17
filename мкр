@@ -1,0 +1,46 @@
+#include <iostream>
+#include <iomanip>
+#include <ctime>
+using namespace std;
+
+int main()
+{
+    srand((int)time(0));
+    int N, M, imax = 0, imin = 0;
+    cout << "N="; cin >> N;
+    cout << "M="; cin >> M;
+
+    double** A = new double* [N], max = 0.0, min = 0.0;
+    for (int i = 0; i < N; i++)
+        A[i] = new double[M];
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+        {
+            A[i][j] = 0.1 * (rand() % 199 - 99);
+            if ((i == 0 && j == 0) || A[i][j] > max) { max = A[i][j]; imax = i; }
+            if ((i == 0 && j == 0) || A[i][j] < min) { min = A[i][j]; imin = i; }
+            cout << setw(4) << A[i][j] << " ";
+        }
+        cout << "\n";
+    }
+
+    cout << "max=" << max << "\nmin=" << min << "\n";
+
+    swap(A[imax], A[imin]);
+
+    for (int i = 0; i < N; i++)
+    {
+        for (int j = 0; j < M; j++)
+            cout << setw(4) << A[i][j] << " ";
+        cout << "\n";
+    }
+
+    for (int i = 0; i < N; i++)
+        delete[]A[i];
+    delete[]A;
+
+    system("pause");
+    return 0;
+}
